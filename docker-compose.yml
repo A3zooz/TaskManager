@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL : jdbc:postgresql://db:5432/testdb
+      SPRING_DATASOURCE_USERNAME : azooz
+      SPRING_DATASOURCE_PASSWORD : azooz1
+      SPRING_JPA_HIBERNATE_DDL_AUTO : update
+    networks:
+      - app-network
+
+  db:
+    image: postgres:15
+    restart: always
+    user: postgres
+    environment:
+      POSTGRES_USER : azooz
+      POSTGRES_PASSWORD : azooz1
+      PGUSER : azooz
+      POSTGRES_DB : testdb
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --auth-local=scram-sha-256"
+
+
+    ports:
+      - "8888:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
