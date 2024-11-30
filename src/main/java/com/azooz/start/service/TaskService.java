@@ -14,7 +14,7 @@ public class TaskService {
     @Autowired
     private TaskRepo taskRepo;
 
-    public Task getTaskById(String id) {
+    public Task getTaskById(Long id) {
         return taskRepo.findById(id).orElse(null);
     }
 
@@ -26,7 +26,7 @@ public class TaskService {
         return taskRepo.save(task);
     }
 
-    public void deleteTask(String id) {
+    public void deleteTask(Long id) {
         taskRepo.deleteById(id);
     }
 

@@ -1,20 +1,26 @@
 package com.azooz.start.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@Document(collection = "task")
+@Entity
 public class Task {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String name;
     private String description;
     private String status;
     private String priority;
+
+    public Task(){
+        
+    }
     
-    public Task(String id, String name, String description, String status, String priority) {
+    public Task(Long id, String name, String description, String status, String priority) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -26,10 +32,10 @@ public class Task {
         return "Task [id=" + id + ", name=" + name + ", description=" + description + ", status=" + status
                 + ", priority=" + priority + "]";
     }
-    public String getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getName() {
